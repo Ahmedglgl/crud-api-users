@@ -8,14 +8,15 @@ const getBaseURL = () => {
   .then(response => response.text())
   .then(data => {
     baseURL = data;
-    getAllPeople();
   })
   .catch(error => {console.error(error)})
   
   
 }
 
+window.onload = () => {
 getBaseURL();
+}
 
 
 
