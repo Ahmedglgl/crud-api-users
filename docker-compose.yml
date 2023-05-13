@@ -12,10 +12,10 @@ services:
 
   frontend:
     container_name: persons_frontend
-    # image: ahmedgalal915/persons_frontend
-    build: 
-      context: ./frontend
-      dockerfile: Dockerfile
+    image: ahmedgalal915/persons_frontend
+    # build: 
+    #   context: ./frontend
+    #   dockerfile: Dockerfile
     ports:
       - 9090:80
     depends_on:
