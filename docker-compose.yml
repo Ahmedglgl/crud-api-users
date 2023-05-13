@@ -1,0 +1,50 @@
+version: "3.8"
+services:
+  api:
+    container_name: persons_api 
+    image: ahmedgalal915/persons_api
+    ports:
+      - 8080:80
+    depends_on:
+      - db
+    links:
+      - db:db
+
+  frontend:
+    container_name: persons_frontend
+    image: ahmedgalal915/persons_frontend
+    # build: 
+    #   context: ./frontend
+    #   dockerfile: Dockerfile
+    ports:
+      - 9090:80
+    depends_on:
+      - api
+    links:
+      - api:api
+
+  phpmyadmin_inventory:
+    image: phpmyadmin
+    ports:
+      - 7070:80
+    environment:
+      - PMA_ARBITRARY=0
+    depends_on:
+      - db
+    links:
+      - db:db
+
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_DATABASE: persons
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - 4406:3306
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+      - ./init-db/persons.sql:/docker-entrypoint-initdb.d/persons.sql
+    # init sql 
+volumes:
+  db:
