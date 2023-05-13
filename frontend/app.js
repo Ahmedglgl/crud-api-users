@@ -1,5 +1,22 @@
 const peopleList = document.getElementById('people');
-const baseURL = "http://localhost:8080/persons/";
+var baseURL = "http://localhost:8080/persons/";
+
+
+const getBaseURL = () => {
+  // Get the base URL depending on the environment from the file getapilink.php in the root folder
+  fetch('getapilink.php')
+  .then(response => response.text())
+  .then(data => {
+    baseURL = data;
+    getAllPeople();
+  })
+  .catch(error => {console.error(error)})
+  
+  
+}
+
+getBaseURL();
+
 
 
 // Function to retrieve all people from the API
